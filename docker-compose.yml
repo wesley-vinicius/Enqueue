@@ -1,0 +1,15 @@
+services:
+  php:
+    build: .
+    container_name: php
+    working_dir: /application
+    networks:
+      - dev-default
+    volumes:
+      - .:/application
+    ports:
+      - 8090:8090
+
+networks:
+  dev-default:
+    external: true

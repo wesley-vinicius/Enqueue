@@ -1,0 +1,22 @@
+{
+    "name": "wesley/enqueue",
+    "autoload": {
+        "psr-4": {
+            "Wesley\\Enqueue\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Wesley Vinicius",
+            "email": "viweesleyy9923@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "8.0.*",
+        "ext-rdkafka": "*",
+        "enqueue/rdkafka": "^0.10.16"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
