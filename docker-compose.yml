@@ -1,15 +1,17 @@
 services:
-  php:
-    build: .
-    container_name: php
+  app:
+    image: enqueue
+    build:
+      context: .
     working_dir: /application
-    networks:
-      - dev-default
     volumes:
       - .:/application
     ports:
       - 8090:8090
+    environment:
+      XDEBUG_MODE: coverage
+    networks:
+      - dev-default
 
 networks:
   dev-default:
-    external: true

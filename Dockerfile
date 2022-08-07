@@ -27,7 +27,9 @@ RUN apt-get update \
 # PHP Extensions
 RUN docker-php-ext-install -j$(nproc) zip \
     && pecl install rdkafka \
-    && docker-php-ext-enable rdkafka
+    && pecl install xdebug-3.0.0 \
+    && docker-php-ext-enable rdkafka \
+    && docker-php-ext-enable xdebug
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 

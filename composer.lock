@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "06c0b1d7c3eba8a129207955c2e77c77",
+    "content-hash": "b568bedd489a431a7029b591fc61ceb3",
     "packages": [
         {
             "name": "enqueue/rdkafka",
