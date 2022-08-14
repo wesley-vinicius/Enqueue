@@ -2,7 +2,7 @@
 
 namespace Wesley\Enqueue;
 
-interface IEnqueueProducer
+interface IProducer
 {
     public function producer(string $topic, array $message);
 }

@@ -3,10 +3,10 @@
 namespace Unit\Factories;
 
 use PHPUnit\Framework\TestCase;
-use Wesley\Enqueue\EnqueueProducer;
-use Wesley\Enqueue\Factories\EnqueueProducerKafkaFactory;
+use Wesley\Enqueue\Producer;
+use Wesley\Enqueue\Factories\ProducerKafkaFactory;
 
-class EnqueueProducerKafkaFactoryTest extends TestCase
+class ProducerKafkaFactoryTest extends TestCase
 {
     public function testItMustCreateInstanceEnqueueProducer()
     {
@@ -17,9 +17,9 @@ class EnqueueProducerKafkaFactoryTest extends TestCase
             ],
         ];
 
-        $factory = new EnqueueProducerKafkaFactory();
+        $factory = new ProducerKafkaFactory();
         $enqueueProducer = $factory->create($config);
 
-        self::assertInstanceOf(EnqueueProducer::class, $enqueueProducer);
+        self::assertInstanceOf(Producer::class, $enqueueProducer);
     }
 }

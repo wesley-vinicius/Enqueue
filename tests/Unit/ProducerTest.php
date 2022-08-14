@@ -5,17 +5,17 @@ namespace Unit;
 use Interop\Queue\ConnectionFactory;
 use Interop\Queue\Context;
 use Interop\Queue\Message;
-use Interop\Queue\Producer;
+use Interop\Queue\Producer as ProducerInterop;
 use Interop\Queue\Topic;
 use PHPUnit\Framework\TestCase;
-use Wesley\Enqueue\EnqueueProducer;
+use Wesley\Enqueue\Producer;
 
-class EnqueueProducerTest extends TestCase
+class ProducerTest extends TestCase
 {
     private ConnectionFactory $connectionFactoryMock;
     private Context $contextMock;
     private Topic $topicMock;
-    private Producer $producerMock;
+    private ProducerInterop $producerMock;
     private Message $messageMock;
 
     public function setUp(): void
@@ -24,7 +24,7 @@ class EnqueueProducerTest extends TestCase
         $this->connectionFactoryMock = $this->createMock(ConnectionFactory::class);
         $this->contextMock = $this->createMock(Context::class);
         $this->topicMock = $this->createMock(Topic::class);
-        $this->producerMock = $this->createMock(Producer::class);
+        $this->producerMock = $this->createMock(ProducerInterop::class);
         $this->messageMock = $this->createMock(Message::class);
     }
 
@@ -57,7 +57,7 @@ class EnqueueProducerTest extends TestCase
             ->method('send')
             ->with($this->topicMock, $this->messageMock);
 
-        $RdKafkaEnqueue = new EnqueueProducer($this->connectionFactoryMock);
+        $RdKafkaEnqueue = new Producer($this->connectionFactoryMock);
         $RdKafkaEnqueue->producer($topic, $message, $header, $properties);
     }
 }

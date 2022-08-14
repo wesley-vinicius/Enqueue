@@ -5,7 +5,7 @@ namespace Wesley\Enqueue;
 use Interop\Queue\ConnectionFactory;
 use Interop\Queue\Context;
 
-class EnqueueProducer implements IEnqueueProducer
+class Producer implements IProducer
 {
     private Context $context;
 
