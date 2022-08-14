@@ -28,7 +28,8 @@
     },
     "scripts": {
         "test": "./vendor/bin/phpunit",
-        "coverage": "./vendor/bin/phpunit --coverage-html tests/.report"
+        "coverage": "./vendor/bin/phpunit --coverage-html tests/.report",
+        "infection": "./vendor/bin/infection"
     },
     "config": {
         "optimize-autoloader": true,

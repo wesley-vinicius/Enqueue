@@ -1,8 +1,11 @@
 update:
-	 docker-compose run --rm app composer update
+	@docker-compose run --rm app composer update
 
 test:
-	 docker-compose run --rm app composer test
+	@docker-compose run --rm app composer test
 
 coverage:
-	 docker-compose run --rm app composer coverage
+	@docker-compose run --rm app composer coverage
+
+infection:
+	@docker-compose run --rm app composer infection
