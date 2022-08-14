@@ -4,6 +4,7 @@ namespace Wesley\Enqueue;
 
 use Interop\Queue\ConnectionFactory;
 use Interop\Queue\Context;
+use Wesley\Enqueue\Contracts\IProducer;
 
 class Producer implements IProducer
 {

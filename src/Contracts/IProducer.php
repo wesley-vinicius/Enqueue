@@ -1,6 +1,6 @@
 <?php
 
-namespace Wesley\Enqueue;
+namespace Wesley\Enqueue\Contracts;
 
 interface IProducer
 {
