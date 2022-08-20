@@ -19,7 +19,7 @@ class Consumer implements IConsumer
         $this->context = $connectionFactory->createContext();
     }
 
-    public function consumer(string $queue, callable $callable, mixed $shutdown = true)
+    public function consume(string $queue, callable $callable, mixed $shutdown = true)
     {
         $queue = $this->context->createQueue($queue);
         $consumer = $this->context->createConsumer($queue);

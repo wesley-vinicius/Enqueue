@@ -63,7 +63,7 @@ class ConsumerTest extends TestCase
 
         $callback = fn (Message $message) => self::assertEquals($message, $this->messageMock);
 
-        $consumer->consumer('test', $callback, false);
+        $consumer->consume('test', $callback, false);
     }
 
     public function testItMustPostMessageInDLQWhenProcessInError()
@@ -115,7 +115,7 @@ class ConsumerTest extends TestCase
 
         $callback = fn (Message $message) => throw new Exception('error');
 
-        $consumer->consumer('test', $callback, false);
+        $consumer->consume('test', $callback, false);
     }
 
     public function testItMustProcessInErrorNoConfigDLQ()
@@ -146,6 +146,6 @@ class ConsumerTest extends TestCase
 
         $callback = fn (Message $message) => throw new Exception('error');
 
-        $consumer->consumer('test', $callback, false);
+        $consumer->consume('test', $callback, false);
     }
 }

@@ -4,5 +4,5 @@ namespace Wesley\Enqueue\Contracts;
 
 interface IConsumer
 {
-    public function consumer(string $queue, callable $callable, mixed $shutdown);
+    public function consume(string $queue, callable $callable, mixed $shutdown);
 }
