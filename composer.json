@@ -19,7 +19,9 @@
     "require": {
         "php": "8.0.*",
         "ext-rdkafka": "*",
-        "enqueue/rdkafka": "^0.10.16"
+        "enqueue/rdkafka": "^0.10.16",
+        "symfony/console": "^6.0",
+        "psr/log": "^3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
