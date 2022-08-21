@@ -66,6 +66,34 @@ class ConsumerTest extends TestCase
         $consumer->consume('test', $callback, false);
     }
 
+    public function testItMustContinueWhenMessageBodyNull()
+    {
+        $queue = 'test';
+
+        $this->contextMock->expects($this->once())
+            ->method('createQueue')
+            ->with($queue)
+            ->willReturn($this->queueMock);
+
+        $this->consumerMock->expects($this->once())
+            ->method('receive')
+            ->willReturn(null);
+
+        $this->contextMock->expects($this->once())
+            ->method('createConsumer')
+            ->willReturn($this->consumerMock);
+
+        $this->connectionFactoryMock->expects($this->once())
+            ->method('createContext')
+            ->willReturn($this->contextMock);
+
+        $consumer = new Consumer($this->connectionFactoryMock);
+
+        $callback = fn (Message $message) => self::assertEquals($message, $this->messageMock);
+
+        $consumer->consume('test', $callback, false);
+    }
+
     public function testItMustPostMessageInDLQWhenProcessInError()
     {
         $queue = 'test';
