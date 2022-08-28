@@ -1,5 +1,5 @@
 {
-    "name": "wesley/enqueue",
+    "name": "wesley-vinicius/enqueue",
     "autoload": {
         "psr-4": {
             "Wesley\\Enqueue\\": "src/"
