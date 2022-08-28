@@ -11,22 +11,48 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 use Wesley\Enqueue\Contracts\IConsumer;
 use Wesley\Enqueue\Factories\ConsumerKafkaFactory;
+use Wesley\Enqueue\Factories\RetryFactory;
+use Wesley\Enqueue\Retry\Retry;
 
 abstract class BaseConsumeCommand extends Command implements IConsumeCommand
 {
     protected IConsumer $consumer;
+    protected ?Retry $pushRetry = null;
 
     protected string $name = '';
     protected string $queue = '';
     protected string $deadQueue = '';
+    private bool $retry = false;
 
     public function __construct(
-        protected LoggerInterface $logger,
         ConsumerKafkaFactory $factory,
-        private array $config = [],
+        protected LoggerInterface $logger,
+        protected ?RetryFactory $retryFactory = null,
+        protected array $config = [],
     ) {
         parent::__construct($this->name);
-        $this->setup();
+        $this->setup($factory);
+    }
+
+    protected abstract function consumer(Message $message);
+
+    private function setup(ConsumerKafkaFactory $factory): void
+    {
+        if ($this->queue() === '') {
+            throw new InvalidArgumentException(
+                'Nome da fila deve ser informado',
+            );
+        }
+
+        if ($this->deadQueue != '') {
+            $this->config['dead_queue'] = $this->deadQueue;
+        }
+
+        if (isset($this->config['retry']) && !empty($this->config['retry'])) {
+            $this->retry = true;
+            $this->pushRetry = $this->retryFactory->create($this::class, $this->config);
+        }
+
         $this->consumer = $factory->create($this->config);
     }
 
@@ -46,22 +72,19 @@ abstract class BaseConsumeCommand extends Command implements IConsumeCommand
                 'Erro ao processar mensagem ' . $throwable->getMessage()
             );
 
+            if ($this->retry) {
+                $this->retryPush($message, $throwable);
+                return;
+            }
+
             throw $throwable;
         }
     }
 
-    protected abstract function consumer(Message $message);
-
-    private function setup(): void
+    private function retryPush(Message $message, Throwable $throwable): void
     {
-        if ($this->queue() === '') {
-           throw new InvalidArgumentException(
-               'Nome da fila deve ser informado',
-           );
-        }
-
-        if ($this->deadQueue != '') {
-            $this->config['dead_queue'] = $this->deadQueue;
+        if (!$this->pushRetry->push($message)) {
+            throw $throwable;
         }
     }
 
