@@ -36,7 +36,7 @@ class RetryConsumeCommand extends BaseConsumeCommand
 
             if ($now < $timeExecRetry) {
                 $this->logger->info("Esperando {$now->diff($timeExecRetry)->s} segundos para executar");
-                sleep(2);
+                sleep($now->diff($timeExecRetry)->s + 1);
             }
 
             $retryCommand->process($message);
