@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "php": "8.0.*",
+        "php": "^8.0",
         "ext-rdkafka": "*",
         "enqueue/rdkafka": "^0.10.16",
         "symfony/console": "^5.0|^6.0",
