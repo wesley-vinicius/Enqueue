@@ -18,6 +18,6 @@ jobs:
           cp .env.ci .env
           composer install --no-ansi --no-interaction --no-suggest --prefer-dist
 
-    - name: phpunit
+      - name: phpunit
         run: |
           composer test
